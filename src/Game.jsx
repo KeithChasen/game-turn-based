@@ -1,4 +1,5 @@
 import { useEffect, useRef } from "react";
+import { GameEngine } from "./Engine/GameEngine";
 
 function Game() {
   let canvasRef = useRef(null);
@@ -10,11 +11,16 @@ function Game() {
     cnv.width = window.innerWidth;
     cnv.height = window.innerHeight;
 
+    const gameEngine = new GameEngine(cnv, ctx);
+
     const animate = () => {
         requestAnimationFrame(animate);
     
         if (ctx && cnv) {
             ctx.clearRect(0, 0, cnv.width, cnv.height);
+
+            gameEngine.run();
+            gameEngine.update();
         }
     }
 
